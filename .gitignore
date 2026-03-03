@@ -13,9 +13,12 @@ cifar10/data/
 cifar10/cifar-10-batches-py/
 *.tar.gz
 
-# Model checkpoints (too large, keep only results.json)
-*.pth
+# Model checkpoints (keep best_model.pth as evidence, exclude training checkpoints)
+checkpoint_*.pth
 *.pt
+
+# Keep best models as proof of training
+!best_model.pth
 
 # IDE
 .idea/
@@ -28,6 +31,10 @@ Thumbs.db
 
 # Temporary files
 *.tmp
+
+# Keep training curves as evidence
+!*training_curves.png
+!*final_training_curves.png
 
 # Archives
 _archived_docs/

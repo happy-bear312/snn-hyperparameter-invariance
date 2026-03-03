@@ -1,0 +1,22 @@
+{
+  "best_acc": 93.61,
+  "final_acc": 93.6,
+  "total_time_hours": 14.008705317642953,
+  "args": {
+    "data_dir": "./data",
+    "batch_size": 128,
+    "num_workers": 4,
+    "T": 4,
+    "embed_dims": 256,
+    "num_heads": 8,
+    "epochs": 300,
+    "lr": 0.001,
+    "weight_decay": 0.05,
+    "warmup_epochs": 10,
+    "device": "cuda",
+    "seed": 3407,
+    "output_dir": "./output_deer_94config_seeds/seed_3407",
+    "print_freq": 50,
+    "eval_freq": 5
+  }
+}
