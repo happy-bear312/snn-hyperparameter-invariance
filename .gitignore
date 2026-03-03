@@ -1,0 +1,78 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+
+# Data files (too large)
+data/
+cifar10/data/
+cifar10/cifar-10-batches-py/
+*.tar.gz
+
+# Model checkpoints (too large, keep only results.json)
+*.pth
+*.pt
+
+# IDE
+.idea/
+.vscode/
+*.code-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+
+# Archives
+_archived_docs/
+submission/
+
+# Chinese documents (for international review)
+*中文*
+*修正*
+熊冬霖*
+论文终稿*
+清理*.ps1
+冗余*
+完善*
+论文优化*
+
+# AI-generated analysis docs (Chinese)
+ANSWER_THREE_KEY_QUESTIONS.md
+ACTION_CHECKLIST.md
+DATA_INTERPRETATION_FAQ.md
+MULTI_SEED_STRATEGY.md
+NOISE_ROBUSTNESS_IMPROVEMENT.md
+STRUCTURE_COMPARISON.md
+SUBMISSION_STRATEGY.md
+SUPPLEMENT_EXPERIMENTS_GUIDE.md
+SUPPLEMENT_EXPERIMENTS_COMPLETED.md
+THEORY_PAPER_SECTION.md
+THEORY_ROBUSTNESS.md
+WHY_ADD_IMPLEMENTATION_NOTE.md
+WHY_HYPERPARAMETER_ROBUSTNESS.md
+PAPER_FIGURES_SUMMARY.md
+TEST_TEX_REVISION_SUMMARY.md
+TRAINING_ANALYSIS_REPORT.txt
+REFERENCE_CORRECTIONS_SUMMARY.md
+
+# Keep these result files
+!*/results.json
+!*/config.json
+!*/summary*.json
+!hyperparameter_invariance_results/
+
+# Large output directories (keep structure but not all files)
+output/
+
+# Experimental PDF
+Parallelizing nonlinear sequential models over the sequence length.pdf
+
+# Word docs
+*.docx

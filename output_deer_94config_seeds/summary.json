@@ -1,0 +1,12 @@
+{
+  "config": "94% verified (batch=128, lr=0.001, dims=256)",
+  "target": "95%+ for paper publication",
+  "baseline_comparison": "95.29% (Spikformer with MultiStepLIF)",
+  "results": [],
+  "statistics": {
+    "mean": 0,
+    "max": 0,
+    "min": 0,
+    "std": 0
+  }
+}

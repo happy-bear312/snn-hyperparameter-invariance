@@ -32,8 +32,11 @@ from torch.nn.parallel import DistributedDataParallel as NativeDDP
 
 from timm.data import create_dataset, resolve_data_config, Mixup, FastCollateMixup, AugMixDataset
 from loader import create_loader
-from timm.models import create_model, safe_model_name, resume_checkpoint, load_checkpoint, \
-    convert_splitbn_model, model_parameters
+from timm.models import create_model, safe_model_name, resume_checkpoint, load_checkpoint, model_parameters
+try:
+    from timm.models import convert_splitbn_model
+except ImportError:
+    convert_splitbn_model = None
 from timm.utils import *
 from timm.loss import LabelSmoothingCrossEntropy, SoftTargetCrossEntropy, JsdCrossEntropy
 from timm.optim import create_optimizer_v2, optimizer_kwargs
@@ -491,6 +494,12 @@ def main():
         _logger.info('Scheduled epochs: {}'.format(num_epochs))
 
     # create the train and eval datasets
+    # Download CIFAR-10 if needed
+    if 'cifar10' in args.dataset.lower():
+        import torchvision
+        torchvision.datasets.CIFAR10(root=args.data_dir, train=True, download=True)
+        torchvision.datasets.CIFAR10(root=args.data_dir, train=False, download=True)
+    
     dataset_train = create_dataset(
         args.dataset,
         root=args.data_dir, split=args.train_split, is_training=True,

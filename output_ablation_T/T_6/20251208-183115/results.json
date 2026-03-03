@@ -1,0 +1,23 @@
+{
+  "best_acc": 94.33,
+  "final_acc": 94.33,
+  "total_time_hours": 17.808310392101607,
+  "args": {
+    "data_dir": "./data",
+    "batch_size": 64,
+    "num_workers": 4,
+    "T": 6,
+    "embed_dims": 256,
+    "num_heads": 8,
+    "epochs": 300,
+    "lr": 0.001,
+    "weight_decay": 0.05,
+    "warmup_epochs": 20,
+    "device": "cuda",
+    "seed": 42,
+    "output_dir": "./output_ablation_T/T_6",
+    "print_freq": 50,
+    "eval_freq": 5,
+    "resume": ""
+  }
+}

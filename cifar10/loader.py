@@ -234,7 +234,7 @@ def create_loader(
         pin_memory=pin_memory,
         drop_last=is_training,
         worker_init_fn=partial(_worker_init, worker_seeding=worker_seeding),
-        persistent_workers=persistent_workers
+        persistent_workers=persistent_workers if num_workers > 0 else False
     )
     try:
         loader = loader_class(dataset, **loader_args)

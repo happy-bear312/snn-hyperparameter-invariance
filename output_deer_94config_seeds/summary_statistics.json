@@ -1,0 +1,134 @@
+{
+  "num_experiments": 5,
+  "best_acc": {
+    "mean": 93.732,
+    "std": 0.16029971927611097,
+    "max": 94.03,
+    "min": 93.59
+  },
+  "final_acc": {
+    "mean": 93.674,
+    "std": 0.16752313273097946
+  },
+  "training_time": {
+    "mean": 13.95141554933124,
+    "std": 0.14605478165607844
+  },
+  "baseline_comparison": {
+    "baseline": 95.29,
+    "ours": 93.732,
+    "gap": -1.558000000000007
+  },
+  "all_results": [
+    {
+      "best_acc": 94.03,
+      "final_acc": 93.95,
+      "total_time_hours": 14.133096814420488,
+      "args": {
+        "data_dir": "./data",
+        "batch_size": 128,
+        "num_workers": 4,
+        "T": 4,
+        "embed_dims": 256,
+        "num_heads": 8,
+        "epochs": 300,
+        "lr": 0.001,
+        "weight_decay": 0.05,
+        "warmup_epochs": 10,
+        "device": "cuda",
+        "seed": 42,
+        "output_dir": "./output_deer_cifar10",
+        "print_freq": 50,
+        "eval_freq": 5
+      }
+    },
+    {
+      "best_acc": 93.76,
+      "final_acc": 93.76,
+      "total_time_hours": 13.9812819807397,
+      "args": {
+        "data_dir": "./data",
+        "batch_size": 128,
+        "num_workers": 4,
+        "T": 4,
+        "embed_dims": 256,
+        "num_heads": 8,
+        "epochs": 300,
+        "lr": 0.001,
+        "weight_decay": 0.05,
+        "warmup_epochs": 10,
+        "device": "cuda",
+        "seed": 2024,
+        "output_dir": "./output_deer_94config_seeds/seed_2024",
+        "print_freq": 50,
+        "eval_freq": 5
+      }
+    },
+    {
+      "best_acc": 93.61,
+      "final_acc": 93.6,
+      "total_time_hours": 14.008705317642953,
+      "args": {
+        "data_dir": "./data",
+        "batch_size": 128,
+        "num_workers": 4,
+        "T": 4,
+        "embed_dims": 256,
+        "num_heads": 8,
+        "epochs": 300,
+        "lr": 0.001,
+        "weight_decay": 0.05,
+        "warmup_epochs": 10,
+        "device": "cuda",
+        "seed": 3407,
+        "output_dir": "./output_deer_94config_seeds/seed_3407",
+        "print_freq": 50,
+        "eval_freq": 5
+      }
+    },
+    {
+      "best_acc": 93.59,
+      "final_acc": 93.46,
+      "total_time_hours": 13.687882523338,
+      "args": {
+        "data_dir": "./data",
+        "batch_size": 128,
+        "num_workers": 4,
+        "T": 4,
+        "embed_dims": 256,
+        "num_heads": 8,
+        "epochs": 300,
+        "lr": 0.001,
+        "weight_decay": 0.05,
+        "warmup_epochs": 20,
+        "device": "cuda",
+        "seed": 12345,
+        "output_dir": "./output_deer_94config_seeds/seed_12345",
+        "print_freq": 50,
+        "eval_freq": 5
+      }
+    },
+    {
+      "best_acc": 93.67,
+      "final_acc": 93.6,
+      "total_time_hours": 13.946111110515064,
+      "args": {
+        "data_dir": "./data",
+        "batch_size": 128,
+        "num_workers": 4,
+        "T": 4,
+        "embed_dims": 256,
+        "num_heads": 8,
+        "epochs": 300,
+        "lr": 0.001,
+        "weight_decay": 0.05,
+        "warmup_epochs": 20,
+        "device": "cuda",
+        "seed": 99999,
+        "output_dir": "./output_deer_94config_seeds/seed_99999",
+        "print_freq": 50,
+        "eval_freq": 5
+      }
+    }
+  ]
+}
