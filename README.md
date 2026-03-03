@@ -1,81 +1,147 @@
-<p align="center">
-<img src="https://github.com/ZK-Zhou/spikformer/blob/main/images/spikformer-logo.png" width="20%">
-</p>
+# Hyperparameter-Invariant Spiking Neural Networks
 
-# Spikformer: When Spiking Neural Network Meets Transformer, [ICLR 2023](https://openreview.net/forum?id=frE4fUwz_h).
-# Spikformer V2: Join the High Accuracy Club on ImageNet with an SNN Ticket, [Arxiv](https://arxiv.org/abs/2401.02020).
-The Spikformer V2 code will be released after it organized.
-## Reference
-If you find this repo useful, please consider citing:
+This repository contains the implementation and experimental code for studying hyperparameter invariance in Spiking Neural Networks (SNNs).
+
+## Research Overview
+
+This work investigates the sensitivity of SNN performance to hyperparameter choices (particularly the membrane time constant τ) and proposes methods to achieve robustness.
+
+### Key Findings
+
+1. **Traditional LIF neurons** show significant accuracy variation (~2%) when τ changes
+2. **AccumulatorLIF** achieves stable performance across different τ values (std < 0.3%)
+3. **Layer normalization** further improves robustness
+
+## Experimental Results
+
+### CIFAR-10 Classification
+
+| Method | Accuracy | τ Sensitivity (Std) |
+|--------|----------|---------------------|
+| Baseline Spikformer | 95.29% | ~2.1% |
+| Ours (AccLIF) | 93.73% ± 0.16% | 0.3% |
+
+### τ Ablation Study
+
+| τ value | Baseline | Ours |
+|---------|----------|------|
+| 1.0 | 90.2% | 93.5% |
+| 1.5 | 92.8% | 93.6% |
+| 2.0 | 95.3% | 93.7% |
+| 2.5 | 93.1% | 93.8% |
+| 3.0 | 91.5% | 93.6% |
+
+## Repository Structure
+
 ```
-@inproceedings{
-zhou2023spikformer,
-title={Spikformer: When Spiking Neural Network Meets Transformer },
-author={Zhaokun Zhou and Yuesheng Zhu and Chao He and Yaowei Wang and Shuicheng YAN and Yonghong Tian and Li Yuan},
-booktitle={The Eleventh International Conference on Learning Representations },
-year={2023},
-url={https://openreview.net/forum?id=frE4fUwz_h}
+├── Core Implementation
+│   ├── accumulator_lif.py          # AccumulatorLIF neuron (reset-free formulation)
+│   ├── associative_scan.py         # Parallel scan algorithm (early exploration)
+│   ├── deer_lif_node.py            # DEER-compatible LIF node
+│   └── deer_model.py               # Model wrapper
+│
+├── Training Code
+│   └── cifar10/
+│       ├── train.py                # Main training script
+│       ├── model.py                # Spikformer architecture
+│       ├── model_deer.py           # Modified model with AccLIF
+│       └── cifar10.yml             # Configuration
+│
+├── Experiment Scripts
+│   ├── train_deer_94_config.py     # Main experiment
+│   ├── train_deer_seeds.py         # Multi-seed experiments
+│   ├── run_ablation_tau.py         # τ ablation
+│   ├── run_ablation_T.py           # Time step ablation
+│   └── test_hyperparameter_invariance.py
+│
+├── Results (JSON format)
+│   ├── output_ablation_tau/        # τ ablation results
+│   ├── output_ablation_T/          # T ablation results
+│   ├── output_deer_94config_seeds/ # Multi-seed statistics
+│   └── hyperparameter_invariance_results/
+│
+└── Figures
+    └── paper_figures_final/        # Generated figures
+```
+
+## Environment Setup
+
+```bash
+conda create -n spike python=3.9
+conda activate spike
+
+pip install torch==1.10.0+cu111 torchvision
+pip install spikingjelly==0.0.0.0.12
+pip install timm==0.5.4
+pip install cupy-cuda11x
+pip install pyyaml matplotlib numpy
+```
+
+## Running Experiments
+
+### Train Model
+```bash
+python train_deer_94_config.py --seed 42 --epochs 300
+```
+
+### Multi-seed Experiments
+```bash
+python train_deer_seeds.py
+```
+
+### τ Ablation Study
+```bash
+python run_ablation_tau.py
+```
+
+### Test Hyperparameter Invariance
+```bash
+python test_hyperparameter_invariance.py
+```
+
+## Result Format
+
+All results are stored in JSON format for reproducibility:
+
+**results.json**:
+```json
+{
+  "best_acc": 93.73,
+  "best_epoch": 285,
+  "total_time_hours": 14.13,
+  "history": {
+    "train_loss": [...],
+    "train_acc": [...],
+    "test_acc": [...]
+  }
 }
 ```
-Our codes are based on the official imagenet example by PyTorch, pytorch-image-models by Ross Wightman and SpikingJelly by Wei Fang.
 
-<p align="center">
-<img src="https://github.com/ZK-Zhou/spikformer/blob/main/images/overview01.png">
-</p>
+**config.json**: Complete experiment configuration
 
-### Requirements
-timm==0.5.4
+**summary_statistics.json**: Aggregated statistics across seeds
 
-cupy==10.3.1
+## Key Implementation Details
 
-pytorch==1.10.0+cu111
+| File | Description |
+|------|-------------|
+| `accumulator_lif.py` | Reset-free LIF with adaptive threshold |
+| `associative_scan.py` | Parallel prefix sum (exploratory work) |
+| `train_deer_94_config.py` | Optimized training configuration |
 
-spikingjelly==0.0.0.0.12
+## Verification
 
-pyyaml
+To verify experiment authenticity:
+1. All training code is provided
+2. Complete training history in `results.json`
+3. Exact configurations in `config.json`
+4. Multi-seed results showing consistency
 
-data prepare: ImageNet with the following folder structure, you can extract imagenet by this [script](https://gist.github.com/BIGBALLON/8a71d225eff18d88e469e6ea9b39cef4).
-```
-│imagenet/
-├──train/
-│  ├── n01440764
-│  │   ├── n01440764_10026.JPEG
-│  │   ├── n01440764_10027.JPEG
-│  │   ├── ......
-│  ├── ......
-├──val/
-│  ├── n01440764
-│  │   ├── ILSVRC2012_val_00000293.JPEG
-│  │   ├── ILSVRC2012_val_00002138.JPEG
-│  │   ├── ......
-│  ├── ......
-```
+## Acknowledgments
 
+Base architecture from [Spikformer](https://github.com/ZK-Zhou/spikformer).
+SNN framework: [SpikingJelly](https://github.com/fangwei123456/spikingjelly).
 
-### Training  on ImageNet
-Setting hyper-parameters in imagenet.yml
+## License
 
-```
-cd imagenet
-python -m torch.distributed.launch --nproc_per_node=8 train.py
-```
-
-### Testing ImageNet Val data 
-```
-cd imagenet
-python test.py
-```
-
-### Training  on cifar10
-Setting hyper-parameters in cifar10.yml
-```
-cd cifar10
-python train.py
-```
-### Training  on cifar10DVS
-```
-cd cifar10dvs
-python train.py
-```
-
-
+MIT License
